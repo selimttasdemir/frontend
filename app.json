@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "Tesettür Giyim",
+    "slug": "tesettur-giyim-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#8B4789"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tesettur.giyim.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#8B4789"
+      },
+      "package": "com.tesettur.giyim.app",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Barkod okutmak için kamera erişimi gerekli."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Ürün fotoğrafı çekmek için kamera erişimi gerekli."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5e4a39bf-c2d1-4f3d-beea-ba802f3b6e4f"
+      }
+    }
+  }
+}
