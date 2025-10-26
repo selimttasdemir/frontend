@@ -4,6 +4,7 @@ import { ProductListScreen } from '../screens/products/ProductListScreen';
 import { ProductDetailScreen } from '../screens/products/ProductDetailScreen';
 import { AddProductScreen } from '../screens/products/AddProductScreen';
 import { EditProductScreen } from '../screens/products/EditProductScreen';
+import { BarcodeScannerScreen } from '../screens/products/BarcodeScannerScreen';
 import { COLORS, FONT_SIZES } from '../constants';
 
 const Stack = createStackNavigator();
@@ -41,6 +42,14 @@ export const ProductNavigator = () => {
         name="EditProduct" 
         component={EditProductScreen}
         options={{ title: 'Ürün Düzenle' }}
+      />
+      <Stack.Screen 
+        name="BarcodeScanner" 
+        component={BarcodeScannerScreen}
+        options={{ 
+          title: 'Barkod Tara',
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

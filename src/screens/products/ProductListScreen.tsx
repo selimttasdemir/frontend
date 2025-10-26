@@ -45,6 +45,15 @@ export const ProductListScreen = ({ navigation }: any) => {
     await fetchProducts({ search: query });
   };
 
+  const handleScanBarcode = () => {
+    navigation.navigate('BarcodeScanner', {
+      onBarcodeScanned: (barcode: string) => {
+        setSearchQuery(barcode);
+        fetchProducts({ search: barcode });
+      },
+    });
+  };
+
   const getStockColor = (stock: number, minStock: number) => {
     if (stock === 0) return COLORS.error;
     if (stock <= minStock) return COLORS.warning;
@@ -159,6 +168,12 @@ export const ProductListScreen = ({ navigation }: any) => {
           containerStyle={styles.searchInput}
         />
         <TouchableOpacity
+          style={styles.scanButton}
+          onPress={handleScanBarcode}
+        >
+          <MaterialCommunityIcons name="barcode-scan" size={24} color={COLORS.surface} />
+        </TouchableOpacity>
+        <TouchableOpacity
           style={styles.addButton}
           onPress={() => navigation.navigate('AddProduct')}
         >
@@ -217,6 +232,15 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     marginBottom: 0,
+  },
+  scanButton: {
+    width: 48,
+    height: 48,
+    borderRadius: BORDER_RADIUS.md,
+    backgroundColor: COLORS.secondary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: SPACING.xs,
   },
   addButton: {
     width: 48,

@@ -70,6 +70,21 @@ export const NewSaleScreen = ({ navigation }: any) => {
     setShowPaymentModal(true);
   };
 
+  const handleScanBarcode = () => {
+    navigation.navigate('BarcodeScanner', {
+      onBarcodeScanned: (barcode: string) => {
+        // Barkoda göre ürün bul
+        const product = products.find((p) => p.barcode === barcode);
+        if (product) {
+          handleAddProduct(product);
+          Alert.alert('Başarılı', `${product.name} sepete eklendi`);
+        } else {
+          Alert.alert('Ürün Bulunamadı', `Barkod: ${barcode} için ürün bulunamadı`);
+        }
+      },
+    });
+  };
+
   const handlePayment = async () => {
     try {
       await createSale(selectedPayment);
@@ -213,6 +228,12 @@ export const NewSaleScreen = ({ navigation }: any) => {
                 leftIcon="magnify"
                 containerStyle={styles.searchInput}
               />
+              <TouchableOpacity
+                style={styles.scanButton}
+                onPress={handleScanBarcode}
+              >
+                <MaterialCommunityIcons name="barcode-scan" size={24} color={COLORS.surface} />
+              </TouchableOpacity>
             </View>
             
             <FlatList
@@ -515,11 +536,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   searchContainer: {
+    flexDirection: 'row',
     padding: SPACING.md,
     backgroundColor: COLORS.surface,
+    gap: SPACING.sm,
   },
   searchInput: {
+    flex: 1,
     marginBottom: 0,
+  },
+  scanButton: {
+    width: 48,
+    height: 48,
+    borderRadius: BORDER_RADIUS.md,
+    backgroundColor: COLORS.secondary,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   // Ürün listesi

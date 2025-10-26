@@ -272,3 +272,313 @@ Frontend uygulaması artık tam özellikli bir **giyim mağazası yönetim siste
 ✅ Giyim spesifik özellikler (marka, kumaş, sezon, vb.)
 
 **Bir sonraki adım**: Backend ile entegrasyon ve satın alma yönetimi ekranlarının eklenmesi! 🚀
+
+
+# 📱 Barkod/QR Kod Tarama Özelliği
+
+## 🎯 Genel Bakış
+
+Uyglamaya **Barkod ve QR Kod tarama** özelliği başarıyla eklendi. Kullanıcılar kamera ile barkod okuyarak:
+- Ürün eklerken barkod girebilir
+- Ürün düzenlerken barkodu güncelleyebilir
+- Ürün listesinde barkod ile arama yapabilir
+- Satış sırasında ürün ekleyebilir
+
+---
+
+## 📦 Yüklenen Paketler
+
+```bash
+npx expo install expo-camera expo-barcode-scanner
+```
+
+### Paket Detayları:
+- **expo-camera**: Kamera erişimi ve kontrol
+- **expo-barcode-scanner**: Barkod tanıma teknolojisi
+
+---
+
+## 🎨 Kullanım Alanları
+
+### 1. **Ürün Listesinde Arama**
+- **Ekran**: `ProductListScreen`
+- **Konum**: Arama çubuğunun yanında altın renkli barkod butonu
+- **Fonksiyon**: Barkod okutulunca otomatik ürün arama yapar
+
+### 2. **Yeni Ürün Eklerken**
+- **Ekran**: `AddProductScreen`
+- **Konum**: Barkod input alanının altında "Barkod Tara" butonu
+- **Fonksiyon**: Barkod okutulunca otomatik olarak input alanına yazılır
+
+### 3. **Ürün Düzenlerken**
+- **Ekran**: `EditProductScreen`
+- **Konum**: Barkod input alanının altında "Barkod Tara" butonu
+- **Fonksiyon**: Yeni barkod okutularak güncellenebilir
+
+### 4. **Satış Yaparken**
+- **Ekran**: `NewSaleScreen`
+- **Konum**: Arama çubuğunun yanında barkod butonu
+- **Fonksiyon**: Barkod okutulunca ürün otomatik sepete eklenir
+
+---
+
+## 🛠️ Teknik Detaylar
+
+### Desteklenen Barkod Tipleri:
+- ✅ QR Code
+- ✅ EAN-13 (Standart ürün barkodu)
+- ✅ EAN-8
+- ✅ Code 128
+- ✅ Code 39
+- ✅ Code 93
+- ✅ Codabar
+- ✅ UPC-A
+- ✅ UPC-E
+
+### Özellikler:
+- **Flash Desteği**: Karanlık ortamlarda flaş açılabilir
+- **Otomatik Tanıma**: Barkod kare içine girdiğinde otomatik taranır
+- **Tekrar Tarama**: Yanlış okumada tekrar tarama yapılabilir
+- **İzin Yönetimi**: Kamera izni olmadan kullanıcıya bilgi gösterilir
+
+---
+
+## 📱 Ekran Görünümü
+
+### Barkod Tarayıcı Ekranı
+```
+┌─────────────────────────┐
+│  ✕  Barkod Tara    💡  │  ← Top bar (kapat, flash)
+├─────────────────────────┤
+│                         │
+│   ┌───────────────┐    │
+│   │               │    │  ← Scanner frame
+│   │    BARKOD     │    │  (köşe işaretleri)
+│   │               │    │
+│   └───────────────┘    │
+│                         │
+│   📱 Barkod Tara        │  ← Icon
+│   Barkodu kare içine   │  ← Instructions
+│   yerleştirin           │
+│                         │
+│   🔄 Tekrar Tara        │  ← Rescan button (scanned ise)
+└─────────────────────────┘
+```
+
+---
+
+## 🔐 İzinler
+
+### iOS (`app.json`)
+```json
+"infoPlist": {
+  "NSCameraUsageDescription": "Bu uygulama barkod taramak için kameranıza erişmek istiyor."
+}
+```
+
+### Android (`app.json`)
+```json
+"permissions": [
+  "CAMERA",
+  "android.permission.CAMERA"
+]
+```
+
+### Plugins
+```json
+"plugins": [
+  [
+    "expo-camera",
+    {
+      "cameraPermission": "Barkod taramak için kameranıza erişmek istiyoruz."
+    }
+  ]
+]
+```
+
+---
+
+## 💻 Kod Kullanımı
+
+### Navigasyon ile Tarayıcıyı Açma:
+```typescript
+navigation.navigate('BarcodeScanner', {
+  onBarcodeScanned: (barcode: string) => {
+    // Barkod okundu, burada işlem yapın
+    console.log('Okunan barkod:', barcode);
+  },
+});
+```
+
+### Ürün Listesinde Kullanım:
+```typescript
+const handleScanBarcode = () => {
+  navigation.navigate('BarcodeScanner', {
+    onBarcodeScanned: (barcode: string) => {
+      setSearchQuery(barcode);
+      fetchProducts({ search: barcode });
+    },
+  });
+};
+```
+
+### Satışta Kullanım:
+```typescript
+const handleScanBarcode = () => {
+  navigation.navigate('BarcodeScanner', {
+    onBarcodeScanned: (barcode: string) => {
+      const product = products.find((p) => p.barcode === barcode);
+      if (product) {
+        handleAddProduct(product);
+        Alert.alert('Başarılı', `${product.name} sepete eklendi`);
+      } else {
+        Alert.alert('Ürün Bulunamadı', `Barkod: ${barcode}`);
+      }
+    },
+  });
+};
+```
+
+---
+
+## 🎨 UI/UX Özellikleri
+
+### Renkler:
+- **Scanner Frame**: Primary renk (`#8B4789`)
+- **Barkod Butonu**: Secondary (altın) renk (`#D4AF37`)
+- **Overlay**: Karartma efekti (rgba opacity)
+
+### Animasyonlar:
+- Köşe işaretleri (corner borders)
+- Smooth geçişler
+- Touch feedback (activeOpacity)
+
+### Responsive Tasarım:
+- Küçük ekranlarda uyumlu
+- Tablet destekli
+- Web uyumlu (kamera izni kontrolü)
+
+---
+
+## 🐛 Hata Yönetimi
+
+### İzin Reddedilirse:
+```
+┌─────────────────────────┐
+│   📷 (kapalı icon)      │
+│                         │
+│  Kamera erişimi         │
+│  reddedildi             │
+│                         │
+│  Ayarlardan kamera      │
+│  iznini açmanız         │
+│  gerekiyor              │
+│                         │
+│   [ Geri Dön ]          │
+└─────────────────────────┘
+```
+
+### Ürün Bulunamadığında:
+- Alert gösterilir
+- Barkod numarası bildirilir
+- Tekrar tarama seçeneği sunulur
+
+---
+
+## 🚀 Test Etme
+
+### Manuel Test:
+1. Ürünler sayfasına git
+2. Barkod butonuna tıkla
+3. Test barkodu tara (örn: 8690001000001)
+4. Ürünün bulunup bulunmadığını kontrol et
+
+### Satış Testi:
+1. Satış ekranına git
+2. Barkod butonuna tıkla
+3. Ürün barkodu tara
+4. Sepete eklendiğini kontrol et
+
+### Ürün Ekleme Testi:
+1. "Yeni Ürün Ekle"ye tıkla
+2. "Barkod Tara" butonuna tıkla
+3. Barkod tara
+4. Input alanına yazıldığını kontrol et
+
+---
+
+## 📋 Type Tanımları
+
+```typescript
+// ProductStackParamList güncellendi
+export type ProductStackParamList = {
+  ProductList: undefined;
+  ProductDetail: { productId: string };
+  AddProduct: undefined;
+  EditProduct: { productId: string };
+  BarcodeScanner: { 
+    onBarcodeScanned: (barcode: string) => void 
+  };
+};
+
+// SalesStackParamList'e eklendi
+export type SalesStackParamList = {
+  SalesList: undefined;
+  NewSale: undefined;
+  SaleDetail: { saleId: string };
+  BarcodeScanner: { 
+    onBarcodeScanned: (barcode: string) => void 
+  };
+};
+```
+
+---
+
+## 📁 Yeni Dosyalar
+
+```
+src/
+  screens/
+    products/
+      BarcodeScannerScreen.tsx  ← YENİ (580 satır)
+```
+
+---
+
+## 🔄 Güncellenen Dosyalar
+
+1. **ProductNavigator.tsx** - BarcodeScanner route eklendi
+2. **SalesNavigator.tsx** - BarcodeScanner route eklendi
+3. **ProductListScreen.tsx** - Barkod butonu eklendi
+4. **AddProductScreen.tsx** - Barkod tarama özelliği
+5. **EditProductScreen.tsx** - Barkod tarama özelliği
+6. **NewSaleScreen.tsx** - Satış sırasında barkod okuma
+7. **app.json** - Kamera izinleri ve plugin konfigürasyonu
+8. **package.json** - expo-camera ve expo-barcode-scanner eklendi
+
+---
+
+## 🎯 Sonuç
+
+Barkod tarama özelliği başarıyla entegre edildi! Artık kullanıcılar:
+- ✅ Hızlı ürün arayabilir
+- ✅ Kolay ürün ekleyebilir
+- ✅ Hızlı satış yapabilir
+- ✅ Stok yönetimi yapabilir
+
+**Profesyonel bir market otomasyon sistemi için kritik özellik eklendi!** 🎉
+
+---
+
+## 📞 Notlar
+
+- Kamera izni ilk kullanımda kullanıcıdan otomatik istenir
+- Web'de kamera API'si tarayıcı desteğine bağlıdır
+- Simulator'da kamera çalışmaz, gerçek cihaz gereklidir
+- Geliştirme sırasında Expo Go uygulaması kullanılabilir
+
+---
+
+**Son Güncelleme**: 26 Ekim 2025
+**Versiyon**: 1.0.0
+**Platform**: Expo SDK 51

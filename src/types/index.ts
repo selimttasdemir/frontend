@@ -284,7 +284,7 @@ export type ProductStackParamList = {
   ProductDetail: { productId: string };
   AddProduct: undefined;
   EditProduct: { productId: string };
-  ScanBarcode: undefined;
+  BarcodeScanner: { onBarcodeScanned: (barcode: string) => void };
 };
 
 export type SupplierStackParamList = {

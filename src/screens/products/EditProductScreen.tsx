@@ -61,6 +61,20 @@ export const EditProductScreen = ({ route, navigation }: any) => {
     fetchSuppliers();
   }, [productId, products]);
 
+  useEffect(() => {
+    if (route?.params?.scannedBarcode) {
+      setBarcode(route.params.scannedBarcode);
+    }
+  }, [route?.params?.scannedBarcode]);
+
+  const handleScanBarcode = () => {
+    navigation.navigate('BarcodeScanner', {
+      onBarcodeScanned: (scannedBarcode: string) => {
+        setBarcode(scannedBarcode);
+      },
+    });
+  };
+
   const loadProductData = (p: Product) => {
     setBarcode(p.barcode);
     setName(p.name);
@@ -202,7 +216,15 @@ export const EditProductScreen = ({ route, navigation }: any) => {
       <ScrollView style={styles.scrollView}>
         <Card>
           <Text style={styles.sectionTitle}>Temel Bilgiler</Text>
-          <Input label="Barkod *" value={barcode} onChangeText={setBarcode} keyboardType="numeric" />
+          
+          <View>
+            <Input label="Barkod *" value={barcode} onChangeText={setBarcode} keyboardType="numeric" />
+            <TouchableOpacity style={styles.scanButton} onPress={handleScanBarcode}>
+              <MaterialCommunityIcons name="barcode-scan" size={20} color={COLORS.primary} />
+              <Text style={styles.scanButtonText}>Barkod Tara</Text>
+            </TouchableOpacity>
+          </View>
+          
           <Input label="Ürün Adı *" value={name} onChangeText={setName} />
           
           <Text style={styles.inputLabel}>Kategori *</Text>
@@ -405,6 +427,25 @@ const styles = StyleSheet.create({
   seasonChipTextSelected: { color: COLORS.surface, fontWeight: '600' },
   helperText: { fontSize: FONT_SIZES.sm, color: COLORS.primary, marginTop: -SPACING.sm, marginBottom: SPACING.sm },
   addButton: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  scanButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: SPACING.xs,
+    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.md,
+    backgroundColor: `${COLORS.primary}10`,
+    borderRadius: BORDER_RADIUS.md,
+    borderWidth: 1,
+    borderColor: COLORS.primary,
+    marginTop: -SPACING.md,
+    marginBottom: SPACING.md,
+  },
+  scanButtonText: {
+    fontSize: FONT_SIZES.sm,
+    color: COLORS.primary,
+    fontWeight: '600',
+  },
   itemsGrid: { gap: SPACING.sm },
   itemCard: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: SPACING.md, backgroundColor: COLORS.background, borderRadius: BORDER_RADIUS.md },
   itemName: { fontSize: FONT_SIZES.md, fontWeight: '500' },

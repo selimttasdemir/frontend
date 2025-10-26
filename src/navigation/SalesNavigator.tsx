@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NewSaleScreen } from '../screens/sales/NewSaleScreen';
+import { BarcodeScannerScreen } from '../screens/products/BarcodeScannerScreen';
 import { COLORS, FONT_SIZES } from '../constants';
 
 const Stack = createStackNavigator();
@@ -23,6 +24,14 @@ export const SalesNavigator = () => {
         name="NewSale" 
         component={NewSaleScreen}
         options={{ title: 'Yeni Satış' }}
+      />
+      <Stack.Screen 
+        name="BarcodeScanner" 
+        component={BarcodeScannerScreen}
+        options={{ 
+          title: 'Barkod Tara',
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

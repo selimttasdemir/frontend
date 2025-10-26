@@ -18,7 +18,7 @@ import { Modal } from '../../components/common/Modal';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../../constants';
 import { ProductUnit, Season, ClothingSize, ClothingColor } from '../../types';
 
-export const AddProductScreen = ({ navigation }: any) => {
+export const AddProductScreen = ({ navigation, route }: any) => {
   const { createProduct, isLoading } = useProductStore();
   const { suppliers, fetchSuppliers } = useSupplierStore();
 
@@ -70,6 +70,21 @@ export const AddProductScreen = ({ navigation }: any) => {
   useEffect(() => {
     fetchSuppliers();
   }, []);
+
+  useEffect(() => {
+    // Eğer route params'dan barkod geliyorsa set et
+    if (route?.params?.scannedBarcode) {
+      setBarcode(route.params.scannedBarcode);
+    }
+  }, [route?.params?.scannedBarcode]);
+
+  const handleScanBarcode = () => {
+    navigation.navigate('BarcodeScanner', {
+      onBarcodeScanned: (scannedBarcode: string) => {
+        setBarcode(scannedBarcode);
+      },
+    });
+  };
 
   const handleAddSize = () => {
     if (!newSize || !newSizeStock) {
@@ -185,13 +200,22 @@ export const AddProductScreen = ({ navigation }: any) => {
         <Card>
           <Text style={styles.sectionTitle}>Temel Bilgiler</Text>
           
-          <Input
-            label="Barkod *"
-            value={barcode}
-            onChangeText={setBarcode}
-            placeholder="8690001000001"
-            keyboardType="numeric"
-          />
+          <View>
+            <Input
+              label="Barkod *"
+              value={barcode}
+              onChangeText={setBarcode}
+              placeholder="8690001000001"
+              keyboardType="numeric"
+            />
+            <TouchableOpacity
+              style={styles.scanButton}
+              onPress={handleScanBarcode}
+            >
+              <MaterialCommunityIcons name="barcode-scan" size={20} color={COLORS.primary} />
+              <Text style={styles.scanButtonText}>Barkod Tara</Text>
+            </TouchableOpacity>
+          </View>
 
           <Input
             label="Ürün Adı *"
@@ -680,6 +704,25 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   addButtonText: {
+    fontSize: FONT_SIZES.sm,
+    color: COLORS.primary,
+    fontWeight: '600',
+  },
+  scanButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: SPACING.xs,
+    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.md,
+    backgroundColor: `${COLORS.primary}10`,
+    borderRadius: BORDER_RADIUS.md,
+    borderWidth: 1,
+    borderColor: COLORS.primary,
+    marginTop: -SPACING.md,
+    marginBottom: SPACING.md,
+  },
+  scanButtonText: {
     fontSize: FONT_SIZES.sm,
     color: COLORS.primary,
     fontWeight: '600',

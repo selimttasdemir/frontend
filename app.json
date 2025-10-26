@@ -16,7 +16,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tesettur.giyim.app"
+      "bundleIdentifier": "com.tesettur.giyim.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Bu uygulama barkod taramak için kameranıza erişmek istiyor.",
+        "NSMicrophoneUsageDescription": "Bu uygulama için mikrofon erişimi gerekli değildir."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -36,7 +40,14 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": [],
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Barkod taramak için kameranıza erişmek istiyoruz."
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "5e4a39bf-c2d1-4f3d-beea-ba802f3b6e4f"
