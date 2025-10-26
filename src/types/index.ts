@@ -11,6 +11,8 @@ export interface User {
 
 export enum UserRole {
   ADMIN = 'admin',
+  ADMIN_1 = 'admin_1', // İlk Admin
+  ADMIN_2 = 'admin_2', // İkinci Admin
   MANAGER = 'manager',
   CASHIER = 'cashier',
   STOCK_KEEPER = 'stock_keeper'
@@ -94,6 +96,41 @@ export interface Supplier {
   address?: string;
   taxNumber?: string;
   createdAt: string;
+}
+
+// Satın Alma / Tedarik Tipleri
+export interface PurchaseOrder {
+  id: string;
+  orderNumber: string;
+  supplier: Supplier;
+  items: PurchaseOrderItem[];
+  subtotal: number;
+  tax: number;
+  total: number;
+  status: PurchaseOrderStatus;
+  purchasedBy: User; // Hangi admin aldı
+  notes?: string;
+  deliveryDate?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PurchaseOrderItem {
+  id: string;
+  product: Product;
+  quantity: number;
+  unitPrice: number;
+  total: number;
+  // Giyim için ek alanlar
+  sizes?: { size: string; quantity: number }[];
+  colors?: { name: string; quantity: number }[];
+}
+
+export enum PurchaseOrderStatus {
+  DRAFT = 'taslak',
+  ORDERED = 'siparis_verildi',
+  DELIVERED = 'teslim_edildi',
+  CANCELLED = 'iptal_edildi'
 }
 
 // Satış Tipleri
@@ -248,6 +285,19 @@ export type ProductStackParamList = {
   AddProduct: undefined;
   EditProduct: { productId: string };
   ScanBarcode: undefined;
+};
+
+export type SupplierStackParamList = {
+  SupplierList: undefined;
+  SupplierDetail: { supplierId: string };
+  AddSupplier: undefined;
+  EditSupplier: { supplierId: string };
+};
+
+export type PurchaseStackParamList = {
+  PurchaseList: undefined;
+  PurchaseDetail: { purchaseId: string };
+  NewPurchase: undefined;
 };
 
 export type SalesStackParamList = {

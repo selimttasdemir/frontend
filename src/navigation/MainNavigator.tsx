@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DashboardScreen } from '../screens/dashboard/DashboardScreen';
 import { ProductNavigator } from './ProductNavigator';
 import { SalesNavigator } from './SalesNavigator';
+import { SupplierNavigator } from './SupplierNavigator';
 import { COLORS, FONT_SIZES } from '../constants';
 
 const Tab = createBottomTabNavigator();
@@ -75,6 +76,19 @@ export const MainNavigator = () => {
       />
       
       <Tab.Screen
+        name="Suppliers"
+        component={SupplierNavigator}
+        options={{
+          headerShown: false,
+          title: 'Tedarikçiler',
+          tabBarLabel: 'Tedarikçi',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="truck" size={size} color={color} />
+          ),
+        }}
+      />
+      
+      <Tab.Screen
         name="Reports"
         component={DashboardScreen}
         options={{
@@ -82,18 +96,6 @@ export const MainNavigator = () => {
           tabBarLabel: 'Raporlar',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="chart-line" size={size} color={color} />
-          ),
-        }}
-      />
-      
-      <Tab.Screen
-        name="Settings"
-        component={DashboardScreen}
-        options={{
-          title: 'Ayarlar',
-          tabBarLabel: 'Ayarlar',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="cog" size={size} color={color} />
           ),
         }}
       />
