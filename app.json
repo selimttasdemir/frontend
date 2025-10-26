@@ -33,22 +33,10 @@
       ]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     },
-    "plugins": [
-      [
-        "expo-barcode-scanner",
-        {
-          "cameraPermission": "Barkod okutmak için kamera erişimi gerekli."
-        }
-      ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "Ürün fotoğrafı çekmek için kamera erişimi gerekli."
-        }
-      ]
-    ],
+    "plugins": [],
     "extra": {
       "eas": {
         "projectId": "5e4a39bf-c2d1-4f3d-beea-ba802f3b6e4f"
