@@ -153,7 +153,7 @@ export const NewSaleScreen = ({ navigation }: any) => {
       
       <View style={styles.cartItemRight}>
         <Text style={[styles.cartItemTotal, isSmallDevice && styles.smallText]}>
-          ₺{item.totalPrice.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}
+          ₺{item.total.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}
         </Text>
         <TouchableOpacity onPress={() => removeFromCart(item.product.id)}>
           <MaterialCommunityIcons 
@@ -278,7 +278,7 @@ export const NewSaleScreen = ({ navigation }: any) => {
                       title="Ödeme Al"
                       onPress={handleCompleteSale}
                       style={styles.payButton}
-                      isLoading={isLoading}
+                      loading={isLoading}
                     />
                   </View>
                 </View>
@@ -294,7 +294,7 @@ export const NewSaleScreen = ({ navigation }: any) => {
           title="Ödeme Yöntemi Seçin"
         >
           <View style={styles.paymentOptions}>
-            {['nakit', 'kredi_karti', 'havale'].map((method) => (
+            {['nakit', 'kart', 'veresiye'].map((method) => (
               <TouchableOpacity
                 key={method}
                 style={[
@@ -307,9 +307,9 @@ export const NewSaleScreen = ({ navigation }: any) => {
                   name={
                     method === 'nakit'
                       ? 'cash'
-                      : method === 'kredi_karti'
+                      : method === 'kart'
                       ? 'credit-card'
-                      : 'bank-transfer'
+                      : 'calendar-clock'
                   }
                   size={32}
                   color={selectedPayment === method ? COLORS.primary : COLORS.textSecondary}
@@ -322,9 +322,9 @@ export const NewSaleScreen = ({ navigation }: any) => {
                 >
                   {method === 'nakit'
                     ? 'Nakit'
-                    : method === 'kredi_karti'
-                    ? 'Kredi Kartı'
-                    : 'Havale/EFT'}
+                    : method === 'kart'
+                    ? 'Kart'
+                    : 'Veresiye'}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -333,7 +333,7 @@ export const NewSaleScreen = ({ navigation }: any) => {
           <Button
             title="Ödemeyi Tamamla"
             onPress={handlePayment}
-            isLoading={isLoading}
+            loading={isLoading}
           />
         </Modal>
       </View>
@@ -415,7 +415,7 @@ export const NewSaleScreen = ({ navigation }: any) => {
                     title="Ödeme Al"
                     onPress={handleCompleteSale}
                     style={styles.payButton}
-                    isLoading={isLoading}
+                    loading={isLoading}
                   />
                 </View>
               </View>
@@ -431,7 +431,7 @@ export const NewSaleScreen = ({ navigation }: any) => {
         title="Ödeme Yöntemi Seçin"
       >
         <View style={styles.paymentOptions}>
-          {['nakit', 'kredi_karti', 'havale'].map((method) => (
+          {['nakit', 'kart', 'veresiye'].map((method) => (
             <TouchableOpacity
               key={method}
               style={[
@@ -444,9 +444,9 @@ export const NewSaleScreen = ({ navigation }: any) => {
                 name={
                   method === 'nakit'
                     ? 'cash'
-                    : method === 'kredi_karti'
+                    : method === 'kart'
                     ? 'credit-card'
-                    : 'bank-transfer'
+                    : 'calendar-clock'
                 }
                 size={32}
                 color={selectedPayment === method ? COLORS.primary : COLORS.textSecondary}
@@ -459,9 +459,9 @@ export const NewSaleScreen = ({ navigation }: any) => {
               >
                 {method === 'nakit'
                   ? 'Nakit'
-                  : method === 'kredi_karti'
-                  ? 'Kredi Kartı'
-                  : 'Havale/EFT'}
+                  : method === 'kart'
+                  ? 'Kart'
+                  : 'Veresiye'}
               </Text>
             </TouchableOpacity>
           ))}
@@ -470,7 +470,7 @@ export const NewSaleScreen = ({ navigation }: any) => {
         <Button
           title="Ödemeyi Tamamla"
           onPress={handlePayment}
-          isLoading={isLoading}
+          loading={isLoading}
         />
       </Modal>
     </View>

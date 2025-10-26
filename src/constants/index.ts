@@ -37,7 +37,10 @@ export const COLORS = {
     ferace: '#673AB7',      // Koyu Mor
     sal: '#3F51B5',         // İndigo
     esarp: '#2196F3',       // Mavi
-    pantolon: '#00BCD4',    // Cyan
+    pardesu: '#5C6BC0',     // Mavi Gri
+    carsaf: '#8D6E63',      // Toprak Tonu
+    bone: '#26A69A',        // Turkuaz
+    pece: '#455A64',        // Koyu Mavi Gri
     takim: '#009688',       // Teal
     aksesuar: '#FF9800',    // Turuncu
     ayakkabi: '#795548',    // Kahverengi
@@ -122,19 +125,18 @@ export const DATE_FORMATS = {
   TIME_ONLY: 'HH:mm',
 } as const;
 
-// Categories (Default) - Tesettür Giyim Kategorileri
+// Kategoriler (Varsayılan) - Tesettür Giyim Odaklı
 export const DEFAULT_CATEGORIES = [
-  { id: '1', name: 'Elbise', icon: 'hanger', color: COLORS.categoryColors.elbise },
+  { id: '1', name: 'Ferace', icon: 'robe', color: COLORS.categoryColors.ferace },
   { id: '2', name: 'Tunik', icon: 'tshirt-crew', color: COLORS.categoryColors.tunik },
-  { id: '3', name: 'Ferace', icon: 'robe', color: COLORS.categoryColors.ferace },
-  { id: '4', name: 'Şal', icon: 'scarf', color: COLORS.categoryColors.sal },
-  { id: '5', name: 'Eşarp', icon: 'butterfly', color: COLORS.categoryColors.esarp },
-  { id: '6', name: 'Pantolon', icon: 'human-handsdown', color: COLORS.categoryColors.pantolon },
-  { id: '7', name: 'Takım', icon: 'tshirt-crew-outline', color: COLORS.categoryColors.takim },
-  { id: '8', name: 'Aksesuar', icon: 'star-circle', color: COLORS.categoryColors.aksesuar },
-  { id: '9', name: 'Ayakkabı', icon: 'shoe-heel', color: COLORS.categoryColors.ayakkabi },
-  { id: '10', name: 'Çanta', icon: 'bag-personal', color: COLORS.categoryColors.canta },
-  { id: '11', name: 'Diğer', icon: 'dots-horizontal', color: COLORS.categoryColors.diger },
+  { id: '3', name: 'Pardesü', icon: 'coat-rack', color: COLORS.categoryColors.pardesu },
+  { id: '4', name: 'Eşarp', icon: 'butterfly', color: COLORS.categoryColors.esarp },
+  { id: '5', name: 'Şal', icon: 'scarf', color: COLORS.categoryColors.sal },
+  { id: '6', name: 'Bone', icon: 'account-circle-outline', color: COLORS.categoryColors.bone },
+  { id: '7', name: 'Peçe', icon: 'account-box-outline', color: COLORS.categoryColors.pece },
+  { id: '8', name: 'Çarşaf', icon: 'bed-outline', color: COLORS.categoryColors.carsaf },
+  { id: '9', name: 'Aksesuar', icon: 'star-circle', color: COLORS.categoryColors.aksesuar },
+  { id: '10', name: 'Diğer', icon: 'dots-horizontal', color: COLORS.categoryColors.diger },
 ] as const;
 
 // Payment Method Icons

@@ -204,11 +204,15 @@ const styles = StyleSheet.create({
     padding: SPACING.md,
     gap: SPACING.sm,
     backgroundColor: COLORS.surface,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    ...(Platform.OS === 'web'
+      ? ({ boxShadow: '0 2px 4px rgba(0,0,0,0.08)' } as any)
+      : {
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+          elevation: 2,
+        }),
   },
   searchInput: {
     flex: 1,
