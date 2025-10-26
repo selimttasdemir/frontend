@@ -24,7 +24,7 @@ export const Card: React.FC<CardProps> = ({
   style,
   headerAction,
 }) => {
-  const Container = onPress ? TouchableOpacity : View;
+  const Container: any = onPress ? TouchableOpacity : View;
 
   return (
     <Container

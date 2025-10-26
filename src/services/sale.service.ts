@@ -1,5 +1,5 @@
 import apiService from './api.service';
-import { Sale, SaleItem, ApiResponse, PaginatedResponse } from '@types/index';
+import { Sale, ApiResponse, PaginatedResponse } from '../types';
 
 interface CreateSaleRequest {
   items: {

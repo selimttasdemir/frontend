@@ -1,5 +1,5 @@
 import apiService from './api.service';
-import { Customer, ApiResponse, PaginatedResponse } from '@types/index';
+import { Customer, ApiResponse, PaginatedResponse } from '../types';
 
 interface CustomerFilters {
   search?: string;

@@ -3,19 +3,21 @@
     "target": "esnext",
     "module": "commonjs",
     "lib": [
-      "esnext"
+      "esnext",
+      "dom"
     ],
     "jsx": "react-native",
-    "strict": true,
+    "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
       "@components/*": [

@@ -21,6 +21,7 @@
     "expo-barcode-scanner": "~13.0.1",
     "expo-camera": "~15.0.14",
     "expo-dev-client": "~4.0.29",
+    "expo-image": "~1.13.0",
     "expo-linear-gradient": "~13.0.2",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",

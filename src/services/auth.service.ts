@@ -1,7 +1,7 @@
 import apiService from './api.service';
-import { User, ApiResponse } from '@types/index';
+import { User, ApiResponse } from '../types';
 
-interface LoginRequest {
+interface LoginCredentials {
   email: string;
   password: string;
 }

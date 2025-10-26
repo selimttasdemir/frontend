@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { STORAGE_KEYS } from '@constants/index';
+import { STORAGE_KEYS } from '../constants';
 
 // API Base URL - development için localhost kullan
 const API_BASE_URL = 'http://localhost:8000/api/v1';
